@@ -11,15 +11,16 @@ body {
    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+button,
+input {
+   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 header,
 .container {
    margin: 0 auto;
    width: min(100%, 800px);
    text-align: center;
-}
-
-header,
-.container {
    margin-bottom: 2rem;
    padding: 1rem 0;
    line-height: 1.5;
@@ -32,7 +33,6 @@ header h1 {
 header p,
 .container p {
    font-size: 13px;
-   font-weight: lighter;
 }
 
 .container p {
@@ -46,7 +46,6 @@ header p,
 }
 
 #login-input {
-   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
    width: 350px;
    text-align: center;
    font-size: 1.3rem;
@@ -55,8 +54,84 @@ header p,
 }
 
 .btn {
-   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
    font-size: 1.3rem;
    padding: 3px 3em;
    cursor: pointer;
+}
+
+.grid-container {
+   margin: 0 auto;
+   width: min(100%, 650px);
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   grid-template-rows: 1fr 50px 150px 50px;
+   background-color: #5abfdb;
+   border: 2px solid black;
+   padding: 5px 0;
+}
+
+.user-avatar {
+   width: 130px;
+   border: 3px solid gainsboro;
+   border-radius: 100%;
+}
+
+.grid-container div {
+   padding: 1rem;
+   text-align: center;
+}
+
+.grid-container section {
+   grid-column: span 2;
+}
+
+.social-info {
+   grid-column: span 3;
+   border: 2px solid black;
+   display: flex;
+   place-content: center space-between;
+}
+
+.user-name {
+   font-size: clamp(20px, 5vw, 30px);
+   margin-bottom: 1rem;
+}
+
+.user-bio {
+   font-size: clamp(15px, 3vw, 19px);
+   line-height: 1.3;
+}
+
+.most-starred-repo {
+   grid-column: span 3;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   border: 2px solid black;
+   background-color: #84cfe4;
+   border-top: none;
+   gap: 15px;
+}
+
+.repo-description {
+   text-align: center;
+   width: 450px;
+}
+
+.most-starred-repo div {
+   width: 350px;
+   display: flex;
+   place-content: center space-between;
+}
+
+.account-info {
+   grid-column: span 3;
+   display: flex;
+   place-content: center space-around;
+}
+
+.social-info,
+.most-starred-repo {
+   border-left: none;
+   border-right: none;
 }
