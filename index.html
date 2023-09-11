@@ -5,10 +5,6 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Document</title>
       <link rel="stylesheet" href="style.css" />
-      <link
-         rel="stylesheet"
-         href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
-      />
       <script src="main.js" defer></script>
    </head>
    <body>
@@ -23,46 +19,12 @@
             <button class="btn">Show</button>
          </label>
       </div>
-      <div class="grid-container">
-         <!-- to add:
-         avatar, log-in or user name, bio, followers and follower count,
-         email, created at, public repos and the hireable prop -->
-         <div>
-            <img
-               class="user-avatar"
-               src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
-               alt="user-avatar"
-            />
-         </div>
-
-         <section>
-            <h2 class="user-name">
-               <a href="#" target="_blank"> Lorem Ipsum</a>
-            </h2>
-            <p class="user-bio">
-               Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </p>
-         </section>
-         <div class="social-info">
-            <p class="user-email">Email: loremipsum@slsl.sds</p>
-            <p class="user-followers">Followers: 99999</p>
-            <p class="user-following">Following: 99</p>
-         </div>
-         <div class="most-starred-repo">
-            <p class="repo-name">
-               <a href="#" target="_blank">sample-repo</a>
-            </p>
-            <p class="repo-description">Lorem ipsum dolor sit.</p>
-            <div>
-               <p class="repo-stars">35</p>
-               <p class="repo-language">HTML</p>
-               <p class="repo-last-updated">2021-04-08</p>
-            </div>
-         </div>
-         <div class="account-info">
-            <p class="user-public-repos">Public Repositories: 25</p>
-            <p class="user-created-at">Date Created: 2018-08-15</p>
-         </div>
-      </div>
+      <dialog>
+         <p>User not found.</p>
+         <form method="dialog">
+            <button>Confirm</button>
+         </form>
+      </dialog>
+      <div class="data-container"></div>
    </body>
 </html>
