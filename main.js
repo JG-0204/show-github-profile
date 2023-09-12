@@ -1,13 +1,19 @@
 const userInput = document.querySelector('#login-input');
 const showButton = document.querySelector('.btn');
+const container = document.querySelector('.data-container');
+const dialog = document.querySelector('dialog');
 
 showButton.addEventListener('click', renderUser);
 
 async function renderUser() {
    let user = await getUsers();
-   let html = '';
+   let userRepos = await getRepo();
 
-   let segment = `
+   if (user === undefined || userRepos === undefined) return true;
+
+   const mostStarredRepo = getMostStarredRepo(userRepos);
+
+   let html = `
    <div>
       <img class="user-avatar"
       src="${user.avatar_url}"
@@ -31,14 +37,16 @@ async function renderUser() {
 
    <section class="most-starred-repo">
       <h2 class="repo-name">
-         <a href="#" target="_blank">sample-repo</a>
+         <a href="${mostStarredRepo.url}" target="_blank">${
+      mostStarredRepo.name
+   }</a>
       </h2>
-      <p class="repo-description">Lorem ipsum dolor sit.</p>
+      <p class="repo-description">${mostStarredRepo.description}</p>
 
       <div>
-         <p class="repo-stars">35</p>
-         <p class="repo-language">HTML</p>
-         <p class="repo-last-updated">2021-04-08</p>
+         <p class="repo-stars">${mostStarredRepo.star}</p>
+         <p class="repo-language">${mostStarredRepo.language}</p>
+         <p class="repo-last-updated">${mostStarredRepo.updated_at}</p>
       </div>
    </section>
    
@@ -50,9 +58,6 @@ async function renderUser() {
       )}</p>
    </div>`;
 
-   html += segment;
-
-   let container = document.querySelector('.data-container');
    container.innerHTML = html;
    container.style.display = 'grid';
 
@@ -60,19 +65,72 @@ async function renderUser() {
 }
 
 async function getUsers() {
-   if (userInput.value === '') return true;
+   if (userInput.value === '') {
+      alert('Enter something');
+      return;
+   }
 
    let url = `https://api.github.com/users/${userInput.value}`;
 
    try {
       let res = await fetch(url);
-      return res.status === 404 ? renderUserNotFoundModal() : res.json();
+      return res.status !== 200 ? renderUserNotFoundModal() : res.json();
    } catch (err) {
       console.log(err);
    }
 }
 
 function renderUserNotFoundModal() {
-   document.querySelector('dialog').showModal();
+   dialog.showModal();
    userInput.value = '';
 }
+
+async function getRepo() {
+   if (userInput.value === '') return undefined;
+
+   let url = `https://api.github.com/users/${userInput.value}/repos`;
+
+   try {
+      let res = await fetch(url);
+      return res.json();
+   } catch (err) {
+      console.log(err);
+   }
+}
+
+function getMostStarredRepo(repository) {
+   const repo = {
+      name: 'default name',
+      description: 'default description',
+      language: 'default language',
+      star: 'N/A',
+      url: '',
+      updated_at: 'N/A',
+   };
+
+   if (repository.length === 0) return repo;
+
+   const starArr = [];
+   // loop
+   repository.forEach((project) => {
+      // find the most starred
+      starArr.push(project.stargazers_count);
+   });
+
+   repository.forEach((project) => {
+      if (project.stargazers_count === Math.max(...starArr)) {
+         repo.name = project.name;
+         repo.description = project.description;
+         repo.language = project.language ?? 'No language';
+         repo.star = project.stargazers_count;
+         repo.url = project.html_url;
+         repo.updated_at = project.updated_at;
+      }
+   });
+
+   return repo;
+}
+
+// format date
+// try and implement local storage
+// refactor if possible

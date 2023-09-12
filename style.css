@@ -64,7 +64,7 @@ header p,
    width: min(98%, 650px);
    display: none;
    grid-template-columns: repeat(3, 1fr);
-   grid-template-rows: 1fr 50px 150px 50px;
+   grid-template-rows: 1fr 50px 1fr 50px;
    background-color: #5abfdb;
    border: 2px solid black;
    padding: 5px 0;
@@ -112,10 +112,11 @@ header p,
    display: flex;
    flex-direction: column;
    align-items: center;
+   justify-content: center;
    border: 2px solid black;
    background-color: #84cfe4;
    border-top: none;
-   gap: 15px;
+   gap: 20px;
 }
 
 .repo-description {
@@ -124,9 +125,9 @@ header p,
 }
 
 .most-starred-repo div {
-   width: 100%;
+   width: 80%;
    display: flex;
-   place-content: center space-evenly;
+   place-content: center space-between;
 }
 
 .account-info {
