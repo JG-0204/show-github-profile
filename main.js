@@ -46,15 +46,16 @@ async function renderUser() {
       <div>
          <p class="repo-stars">${mostStarredRepo.star}</p>
          <p class="repo-language">${mostStarredRepo.language}</p>
-         <p class="repo-last-updated">${mostStarredRepo.updated_at}</p>
+         <p class="repo-last-updated">${formatDate(
+            mostStarredRepo.pushed_at
+         )}</p>
       </div>
    </section>
    
    <div class="account-info">
       <p class="user-public-repos">Public Repositories: ${user.public_repos}</p>
-      <p class="user-created-at">Date Created: ${user.created_at.slice(
-         0,
-         10
+      <p class="user-created-at">Date Created: ${formatDate(
+         user.created_at
       )}</p>
    </div>`;
 
@@ -74,6 +75,7 @@ async function getUsers() {
 
    try {
       let res = await fetch(url);
+      console.log(res);
       return res.status !== 200 ? renderUserNotFoundModal() : res.json();
    } catch (err) {
       console.log(err);
@@ -105,7 +107,7 @@ function getMostStarredRepo(repository) {
       language: 'default language',
       star: 'N/A',
       url: '',
-      updated_at: 'N/A',
+      pushed_at: 'N/A',
    };
 
    if (repository.length === 0) return repo;
@@ -124,13 +126,61 @@ function getMostStarredRepo(repository) {
          repo.language = project.language ?? 'No language';
          repo.star = project.stargazers_count;
          repo.url = project.html_url;
-         repo.updated_at = project.updated_at;
+         repo.pushed_at = project.pushed_at;
       }
    });
 
    return repo;
 }
 
-// format date
+function formatDate(date) {
+   const d = date.slice(0, 10);
+
+   let month = d.split('-')[1];
+   const year = d.split('-')[0];
+   const day = d.split('-')[2];
+
+   switch (month) {
+      case '01':
+         month = 'January';
+         break;
+      case '02':
+         month = 'February';
+         break;
+      case '03':
+         month = 'March';
+         break;
+      case '04':
+         month = 'April';
+         break;
+      case '05':
+         month = 'May';
+         break;
+      case '06':
+         month = 'June';
+         break;
+      case '07':
+         month = 'July';
+         break;
+      case '08':
+         month = 'August';
+         break;
+      case '09':
+         month = 'September';
+         break;
+      case '10':
+         month = 'October';
+         break;
+      case '11':
+         month = 'November';
+         break;
+      case '12':
+         month = 'December';
+         break;
+   }
+
+   return `${month} ${day} ${year}`;
+}
+
 // try and implement local storage
 // refactor if possible
