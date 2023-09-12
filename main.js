@@ -6,10 +6,18 @@ const dialog = document.querySelector('dialog');
 showButton.addEventListener('click', renderUser);
 
 async function renderUser() {
-   let user = await getUsers();
-   let userRepos = await getRepo();
+   const username = userInput.value;
 
-   if (user === undefined || userRepos === undefined) return true;
+   if (username === '') {
+      alert('Please enter a username');
+      return;
+   }
+
+   let user = await getUsers(username);
+
+   if (!user) return;
+
+   let userRepos = await getRepo(username);
 
    const mostStarredRepo = getMostStarredRepo(userRepos);
 
@@ -46,17 +54,13 @@ async function renderUser() {
       <div>
          <p class="repo-stars">${mostStarredRepo.star}</p>
          <p class="repo-language">${mostStarredRepo.language}</p>
-         <p class="repo-last-updated">${formatDate(
-            mostStarredRepo.pushed_at
-         )}</p>
+         <p class="repo-last-updated">Updated: ${mostStarredRepo.pushed_at}</p>
       </div>
    </section>
    
    <div class="account-info">
       <p class="user-public-repos">Public Repositories: ${user.public_repos}</p>
-      <p class="user-created-at">Date Created: ${formatDate(
-         user.created_at
-      )}</p>
+      <p class="user-created-at">Joined: ${formatDate(user.created_at)}</p>
    </div>`;
 
    container.innerHTML = html;
@@ -65,20 +69,27 @@ async function renderUser() {
    userInput.value = '';
 }
 
-async function getUsers() {
-   if (userInput.value === '') {
-      alert('Enter something');
-      return;
-   }
-
-   let url = `https://api.github.com/users/${userInput.value}`;
+async function getUsers(username) {
+   let url = `https://api.github.com/users/${username}`;
 
    try {
       let res = await fetch(url);
-      console.log(res);
       return res.status !== 200 ? renderUserNotFoundModal() : res.json();
    } catch (err) {
       console.log(err);
+      return null;
+   }
+}
+
+async function getRepo(username) {
+   let url = `https://api.github.com/users/${username}/repos`;
+
+   try {
+      let res = await fetch(url);
+      return res.json();
+   } catch (err) {
+      console.log(err);
+      return null;
    }
 }
 
@@ -87,100 +98,34 @@ function renderUserNotFoundModal() {
    userInput.value = '';
 }
 
-async function getRepo() {
-   if (userInput.value === '') return undefined;
-
-   let url = `https://api.github.com/users/${userInput.value}/repos`;
-
-   try {
-      let res = await fetch(url);
-      return res.json();
-   } catch (err) {
-      console.log(err);
+function getMostStarredRepo(repositories) {
+   if (repositories.length === 0) {
+      return {
+         name: 'No repositories',
+         description: 'N/A',
+         language: 'N/A',
+         star: 'N/A',
+         url: '',
+         pushed_at: 'N/A',
+      };
    }
-}
 
-function getMostStarredRepo(repository) {
-   const repo = {
-      name: 'default name',
-      description: 'default description',
-      language: 'default language',
-      star: 'N/A',
-      url: '',
-      pushed_at: 'N/A',
+   const mostStarred = repositories.reduce((prev, current) =>
+      current.stargazers_count > prev.stargazers_count ? current : prev
+   );
+
+   return {
+      name: mostStarred.name,
+      description: mostStarred.description ?? 'N/A',
+      language: mostStarred.language ?? 'N/A',
+      star: mostStarred.stargazers_count,
+      url: mostStarred.html_url,
+      pushed_at: formatDate(mostStarred.pushed_at),
    };
-
-   if (repository.length === 0) return repo;
-
-   const starArr = [];
-   // loop
-   repository.forEach((project) => {
-      // find the most starred
-      starArr.push(project.stargazers_count);
-   });
-
-   repository.forEach((project) => {
-      if (project.stargazers_count === Math.max(...starArr)) {
-         repo.name = project.name;
-         repo.description = project.description;
-         repo.language = project.language ?? 'No language';
-         repo.star = project.stargazers_count;
-         repo.url = project.html_url;
-         repo.pushed_at = project.pushed_at;
-      }
-   });
-
-   return repo;
 }
 
+// Function to format a date as "Month Day Year"
 function formatDate(date) {
-   const d = date.slice(0, 10);
-
-   let month = d.split('-')[1];
-   const year = d.split('-')[0];
-   const day = d.split('-')[2];
-
-   switch (month) {
-      case '01':
-         month = 'January';
-         break;
-      case '02':
-         month = 'February';
-         break;
-      case '03':
-         month = 'March';
-         break;
-      case '04':
-         month = 'April';
-         break;
-      case '05':
-         month = 'May';
-         break;
-      case '06':
-         month = 'June';
-         break;
-      case '07':
-         month = 'July';
-         break;
-      case '08':
-         month = 'August';
-         break;
-      case '09':
-         month = 'September';
-         break;
-      case '10':
-         month = 'October';
-         break;
-      case '11':
-         month = 'November';
-         break;
-      case '12':
-         month = 'December';
-         break;
-   }
-
-   return `${month} ${day} ${year}`;
+   const options = { year: 'numeric', month: 'long', day: 'numeric' };
+   return new Date(date).toLocaleDateString(undefined, options);
 }
-
-// try and implement local storage
-// refactor if possible
