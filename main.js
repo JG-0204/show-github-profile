@@ -22,7 +22,7 @@ async function renderUser() {
    const mostStarredRepo = getMostStarredRepo(userRepos);
 
    let html = `
-   <div>
+   <div class="avatar-container">
       <img class="user-avatar"
       src="${user.avatar_url}"
       alt="user-avatar"/>
