@@ -12,6 +12,7 @@ A page for seeing your github user info with the use of [Github REST API](https:
 
 ## What I've learned
 
+-  CSS Functions
 -  JS Fetch API
 -  JS Promises
 -  Async/Await
