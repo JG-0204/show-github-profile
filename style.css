@@ -67,7 +67,7 @@ header p,
    width: min(99%, 700px);
    display: none;
    grid-template-columns: repeat(3, 1fr);
-   grid-template-rows: 180px 55px 180px 55px;
+   grid-template-rows: 1fr 55px 1fr 55px;
    background-color: #5abfdb;
    border: 2px solid black;
 }
