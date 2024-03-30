@@ -1,5 +1,5 @@
 import api from './api.js';
-import createUserCard from './component.js';
+import { createSpinner, createUserCard } from './component.js';
 
 const githubUserSearchForm = document.getElementById('form');
 const userInput = document.getElementById('input-username');
@@ -9,11 +9,11 @@ let loading;
 
 const setLoading = (val) => (loading = val);
 
-// const savedUser = window.localStorage.getItem('user');
-// const parsedUser = JSON.parse(savedUser);
+const savedUser = window.localStorage.getItem('user');
+const parsedUser = JSON.parse(savedUser);
 
-// const user = parsedUser.user;
-// const userRepos = parsedUser.userRepos;
+const user = parsedUser.user;
+const userRepos = parsedUser.userRepos;
 
 // const createGithubUserHtml = () => {
 //   const mostStarredRepo = getUserMostStarredRepo(userRepos);
@@ -52,11 +52,6 @@ const setLoading = (val) => (loading = val);
 //   return html;
 // };
 
-const createLoadingHtml = () => {
-  const html = '<span class="loading loading-spinner loading-md"></span>';
-  return html;
-};
-
 const getGithubUser = async (username) => {
   try {
     const user = await api.getUser(username);
@@ -82,26 +77,38 @@ const getUserMostStarredRepo = (repositories) => {
 };
 
 const renderUser = async (username) => {
+  // remove previous user card
+  container.innerHTML = '';
+
   setLoading(true);
+
+  const spinner = createSpinner();
 
   if (loading) {
     console.log('loading...');
-    container.innerHTML = createLoadingHtml();
+    container.appendChild(spinner);
   }
 
   try {
     const { user, userRepos } = await getGithubUser(username);
 
+    setLoading(false);
+
+    const mostStarredRepo = getUserMostStarredRepo(userRepos);
+
+    const userCard = createUserCard(user, mostStarredRepo);
+
     // window.localStorage.clear();
     // window.localStorage.setItem('user', JSON.stringify({ user, userRepos }));
 
-    setLoading(false);
+    container.removeChild(spinner);
+    container.appendChild(userCard);
 
-    container.appendChild(createUserCard(user));
     console.log('user fetched');
   } catch (err) {
     setLoading(false);
-    console.log('Error: ', err.message);
+    container.removeChild(spinner);
+    console.log('Error: ', err);
   }
 };
 
@@ -109,7 +116,6 @@ const handleFormSubmit = (event) => {
   if (!userInput.value) {
     console.log('search a user..');
   } else {
-    console.log('render');
     renderUser(userInput.value);
   }
 
@@ -119,3 +125,5 @@ const handleFormSubmit = (event) => {
 };
 
 githubUserSearchForm.addEventListener('submit', handleFormSubmit);
+
+container.appendChild(createUserCard(user, getUserMostStarredRepo(userRepos)));
