@@ -8258,6 +8258,58 @@ html:has(.drawer-open.drawer-open) {
   inset-inline-end: 0.25rem;
 }
 
+.left-0 {
+  left: 0px;
+}
+
+.top-0 {
+  top: 0px;
+}
+
+.bottom-0 {
+  bottom: 0px;
+}
+
+.bottom-\[-1rem\] {
+  bottom: -1rem;
+}
+
+.bottom-\[-2rem\] {
+  bottom: -2rem;
+}
+
+.bottom-\[-1\.5rem\] {
+  bottom: -1.5rem;
+}
+
+.left-\[1rem\] {
+  left: 1rem;
+}
+
+.left-\[5px\] {
+  left: 5px;
+}
+
+.left-\[-5px\] {
+  left: -5px;
+}
+
+.left-\[-10px\] {
+  left: -10px;
+}
+
+.right-\[-10px\] {
+  right: -10px;
+}
+
+.right-\[100px\] {
+  right: 100px;
+}
+
+.right-\[200px\] {
+  right: 200px;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -8453,10 +8505,6 @@ html:has(.drawer-open.drawer-open) {
 
 .w-4 {
   width: 1rem;
-}
-
-.w-\[200px\] {
-  width: 200px;
 }
 
 .w-\[300px\] {
@@ -9342,6 +9390,14 @@ html:has(.drawer-open.drawer-open) {
   border-radius: 0.5rem;
 }
 
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.rounded-md {
+  border-radius: 0.375rem;
+}
+
 .rounded-b {
   border-bottom-right-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
@@ -9412,6 +9468,10 @@ html:has(.drawer-open.drawer-open) {
   border-width: 2px;
 }
 
+.border-4 {
+  border-width: 4px;
+}
+
 .border-x {
   border-left-width: 1px;
   border-right-width: 1px;
@@ -9480,6 +9540,11 @@ html:has(.drawer-open.drawer-open) {
   border-color: var(--fallback-p,oklch(var(--p)/var(--tw-border-opacity)));
 }
 
+.border-neutral {
+  --tw-border-opacity: 1;
+  border-color: var(--fallback-n,oklch(var(--n)/var(--tw-border-opacity)));
+}
+
 .bg-\[rgb\(255\2c 0\2c 0\)\] {
   --tw-bg-opacity: 1;
   background-color: rgb(255 0 0 / var(--tw-bg-opacity));
@@ -9490,9 +9555,9 @@ html:has(.drawer-open.drawer-open) {
   background-color: var(--fallback-n,oklch(var(--n)/var(--tw-bg-opacity)));
 }
 
-.bg-secondary {
+.bg-primary {
   --tw-bg-opacity: 1;
-  background-color: var(--fallback-s,oklch(var(--s)/var(--tw-bg-opacity)));
+  background-color: var(--fallback-p,oklch(var(--p)/var(--tw-bg-opacity)));
 }
 
 .decoration-slice {
@@ -9711,10 +9776,6 @@ html:has(.drawer-open.drawer-open) {
   font-weight: 700;
 }
 
-.font-extralight {
-  font-weight: 200;
-}
-
 .font-light {
   font-weight: 300;
 }
@@ -9811,9 +9872,9 @@ html:has(.drawer-open.drawer-open) {
   color: var(--fallback-p,oklch(var(--p)/var(--tw-text-opacity)));
 }
 
-.text-secondary-content {
+.text-primary-content {
   --tw-text-opacity: 1;
-  color: var(--fallback-sc,oklch(var(--sc)/var(--tw-text-opacity)));
+  color: var(--fallback-pc,oklch(var(--pc)/var(--tw-text-opacity)));
 }
 
 .underline {

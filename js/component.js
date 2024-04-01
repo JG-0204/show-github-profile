@@ -142,8 +142,20 @@ const createSpinner = () => {
   return spinner;
 };
 
+const createHelpText = () => {
+  const span = createElement('span');
+  span.textContent = 'Input a username';
+  span.className =
+    'absolute right-[200px] bottom-[-2rem]  rounded-md badge gap-2"';
+  return span;
+};
+
 // format date as MM-D
 const formatDate = (date) => {
+  if (date === 'N/A') {
+    return date;
+  }
+
   const options = { month: 'short', day: 'numeric' };
 
   const formattedDate = new Date(date).toLocaleDateString('en-us', options);
@@ -154,4 +166,4 @@ const exceedsCharacterLimit = (text, limit = 80) => {
   return text.split('').length > limit;
 };
 
-export { createSpinner, createUserCard };
+export { createSpinner, createUserCard, createHelpText };
