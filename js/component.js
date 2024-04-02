@@ -146,8 +146,25 @@ const createHelpText = () => {
   const span = createElement('span');
   span.textContent = 'Input a username';
   span.className =
-    'absolute right-[200px] bottom-[-2rem]  rounded-md badge gap-2"';
+    'absolute right-[200px] bottom-[-2rem]  rounded-md badge gap-2 bg-warning text-neutral';
   return span;
+};
+
+const createError = (errorMessage) => {
+  const container = document.createElement('div');
+  container.className = 'toast toast-center toast-middle';
+
+  const errorDiv = document.createElement('div');
+  errorDiv.className = 'alert alert-error';
+
+  const info = document.createElement('span');
+  info.className = 'text-neutral';
+  info.textContent = errorMessage;
+
+  errorDiv.appendChild(info);
+  container.appendChild(errorDiv);
+
+  return container;
 };
 
 // format date as MM-D
@@ -166,4 +183,4 @@ const exceedsCharacterLimit = (text, limit = 80) => {
   return text.split('').length > limit;
 };
 
-export { createSpinner, createUserCard, createHelpText };
+export { createSpinner, createUserCard, createHelpText, createError };

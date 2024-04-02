@@ -1,5 +1,10 @@
 import api from './api.js';
-import { createSpinner, createUserCard, createHelpText } from './component.js';
+import {
+  createSpinner,
+  createUserCard,
+  createHelpText,
+  createError,
+} from './component.js';
 
 const githubUserSearchForm = document.getElementById('form');
 const userInput = document.getElementById('input-username');
@@ -22,8 +27,15 @@ const getGithubUser = async (username) => {
     const userRepos = await api.getUserRepos(username);
     return { user, userRepos };
   } catch (error) {
-    console.error('error:', error.message);
-    return null;
+    if (error.response.status === 404) {
+      showError("Hmmm, couldn't find that user.");
+    } else if (error.response.status === 403) {
+      showError("Hold your horses! API's on cooldown");
+    } else {
+      showError(
+        "Well, that's awkward. Our bad! Try again when the internet's in a better mood.",
+      );
+    }
   }
 };
 
@@ -75,8 +87,6 @@ const renderUser = async (username) => {
   } catch (err) {
     setLoading(false);
     container.removeChild(spinner);
-    console.error('Error: ', err);
-    return null;
   }
 };
 
@@ -93,6 +103,8 @@ const handleFormSubmit = (event) => {
   event.preventDefault();
 };
 
+githubUserSearchForm.addEventListener('submit', handleFormSubmit);
+
 const showHelpText = () => {
   const helpText = createHelpText();
   githubUserSearchForm.appendChild(helpText);
@@ -102,6 +114,13 @@ const showHelpText = () => {
   }, 3000);
 };
 
-githubUserSearchForm.addEventListener('submit', handleFormSubmit);
+const showError = (errorMessage) => {
+  const error = createError(errorMessage);
+  container.appendChild(error);
+
+  setTimeout(() => {
+    container.removeChild(error);
+  }, 5000);
+};
 
 // container.appendChild(createUserCard(user, getUserMostStarredRepo(userRepos)));
