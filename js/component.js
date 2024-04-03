@@ -5,13 +5,14 @@ const createElement = (type) => {
 
 const createUserGeneralInfo = ({ name, login, location }) => {
   const container = createElement('div');
-  container.className = 'flex flex-col pl-[5px] w-content max-w-[500px] ';
+  container.className =
+    'flex flex-col pl-[5px] w-max h-content min-h-[72px] mt-16 md:w-[300px] md:mt-0 lg:w-[500px]';
 
   const namePara = createElement('p');
   namePara.textContent = name ?? login;
   namePara.className = 'font-bold text-lg';
   const usernamePara = createElement('p');
-  usernamePara.textContent = !name ? '' : login;
+  usernamePara.textContent = login;
   usernamePara.className = 'font-light text-sm';
   const locationPara = createElement('p');
   locationPara.textContent = location ?? 'dk, from earth probably';
@@ -22,7 +23,8 @@ const createUserGeneralInfo = ({ name, login, location }) => {
 
 const createUserStats = ({ public_repos, followers, following }) => {
   const container = createElement('div');
-  container.className = 'stats shadow w-content max-w-[500px] bg-neutral';
+  container.className =
+    'stats shadow stats-vertical absolute top-2 right-2 md:right-5 md:top-5 lg:static w-[150px] lg:stats-horizontal lg:w-[500px] bg-neutral';
   const repoCountContainer = createElement('div');
   repoCountContainer.className = 'stat place-items-center';
   const followerCountContainer = createElement('div');
@@ -32,24 +34,29 @@ const createUserStats = ({ public_repos, followers, following }) => {
 
   const repoCount = createElement('div');
   repoCount.textContent = public_repos;
-  repoCount.className = 'stat-value text-neutral-content';
+  repoCount.className = 'stat-value text-neutral-content text-lg lg:text-xl';
   const repoCountDesc = createElement('div');
   repoCountDesc.textContent = 'Repositories';
-  repoCountDesc.className = 'stat-title text-neutral-content';
+  repoCountDesc.className =
+    'stat-title text-neutral-content text-sm lg:text-lg';
 
   const followerCount = createElement('div');
   followerCount.textContent = followers;
-  followerCount.className = 'stat-value text-neutral-content';
+  followerCount.className =
+    'stat-value text-neutral-content text-lg lg:text-xl';
   const followerCountDesc = createElement('div');
   followerCountDesc.textContent = 'Followers';
-  followerCountDesc.className = 'stat-title text-neutral-content';
+  followerCountDesc.className =
+    'stat-title text-neutral-content text-sm lg:text-lg';
 
   const followingCount = createElement('div');
   followingCount.textContent = following;
-  followingCount.className = 'stat-value text-neutral-content';
+  followingCount.className =
+    'stat-value text-neutral-content text-lg lg:text-xl';
   const followingCountDesc = createElement('div');
   followingCountDesc.textContent = 'Following';
-  followingCountDesc.className = 'stat-title text-neutral-content';
+  followingCountDesc.className =
+    'stat-title text-neutral-content text-sm lg:text-lg';
 
   repoCountContainer.append(repoCount, repoCountDesc);
   followerCountContainer.append(followerCount, followerCountDesc);
@@ -74,11 +81,11 @@ const createUserMostStarredRepository = ({
 }) => {
   const container = createElement('div');
   container.className =
-    'w-content max-w-[500px] h-fit max-h-[150px] flex flex-col gap-5';
+    'w-[360px] md:w-[420px] lg:w-[500px] h-content flex flex-col gap-5 ';
 
   const projectOverviewContainer = createElement('div');
   projectOverviewContainer.className =
-    'flex flex-col gap-[5px] pt-[3px] px-[5px]';
+    'flex flex-col gap-[5px] pt-[3px] px-[5px] h-[80px]';
   const repoDetailsContainer = createElement('div');
   repoDetailsContainer.className = 'flex justify-around pb-[5px]';
 
@@ -114,7 +121,8 @@ const createUserMostStarredRepository = ({
 
 const createUserCard = (user, repo) => {
   const container = createElement('div');
-  container.className = 'flex gap-[1rem]';
+  container.className =
+    'md:w-fit flex flex-col justify-center lg:flex-row gap-6 shadow-lg p-1.5 md:p-4 rounded-2xl relative lg:static';
 
   const infoContainer = createElement('div');
   infoContainer.className = 'flex flex-col gap-[5px]';
@@ -126,10 +134,10 @@ const createUserCard = (user, repo) => {
   );
 
   const avatar = createElement('img');
-  avatar.className = 'w-[300px] rounded-2xl ';
+  avatar.className =
+    'w-[180px] rounded-full md:w-[220px] lg:w-[300px] lg:rounded-2xl ';
   avatar.src = user.avatar_url;
-
-  // ring ring-primary ring-offset-base-100 ring-offset-4
+  avatar.alt = 'user_avatar';
 
   container.append(avatar, infoContainer);
 
@@ -138,7 +146,8 @@ const createUserCard = (user, repo) => {
 
 const createSpinner = () => {
   const spinner = createElement('span');
-  spinner.className = 'loading loading-spinner loading-lg mt-[100px]';
+  spinner.className =
+    'loading loading-spinner loading-lg mt-[180px] lg:mt-[100px]';
   return spinner;
 };
 

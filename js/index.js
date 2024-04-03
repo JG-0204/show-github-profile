@@ -15,12 +15,6 @@ let loading;
 
 const setLoading = (val) => (loading = val);
 
-// const savedUser = window.localStorage.getItem('user');
-// const parsedUser = JSON.parse(savedUser);
-
-// const user = parsedUser.user;
-// const userRepos = parsedUser.userRepos;
-
 const getGithubUser = async (username) => {
   try {
     const user = await api.getUser(username);
@@ -45,12 +39,12 @@ const getUserMostStarredRepo = (repositories) => {
 
   if (!repositories.length) {
     const noRepo = {
-      name: 'N/A',
-      description: 'N/A',
+      name: "don't click this",
+      description: 'a black hole',
       html_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
       updated_at: 'N/A',
       language: 'N/A',
-      stargazers_count: 'N/A',
+      stargazers_count: '0',
     };
 
     return noRepo;
@@ -122,5 +116,3 @@ const showError = (errorMessage) => {
     container.removeChild(error);
   }, 5000);
 };
-
-// container.appendChild(createUserCard(user, getUserMostStarredRepo(userRepos)));

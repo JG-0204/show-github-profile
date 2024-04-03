@@ -11,12 +11,14 @@
   <body>
     <header>
       <div class="mb-6 mt-2">
-        <h1 class="font-bold text-3xl lowercase">Github Profile_</h1>
+        <h1 class="font-bold text-3xl lowercase text-center md:text-left">
+          Github Profile_
+        </h1>
       </div>
-      <p class="lg:w-5/12 md:w-8/12 text-justify mx-auto w-10/12">
+      <p class="w-11/12 md:w-[555px] h-fit min-h-[120px] text-justify mx-auto">
         search for a GitHub user, and find key details about them right here.
-        Get info like their name, username, location, follower count, and a peek
-        at their repositories.
+        Get info like their name, username, location, follower count, following
+        count, and a peek at their popular repository.
       </p>
     </header>
     <main class="mt-[3rem]">
@@ -39,6 +41,7 @@
         </label>
         <button
           type="submit"
+          name="user-search"
           id="btn-search"
           class="uppercase btn btn-square btn-neutral text-neutral-content"
         >
@@ -58,7 +61,7 @@
       </form>
       <div
         id="container"
-        class="w-fit mx-auto mt-[190px] flex justify-center"
+        class="mt-[120px] lg:mt-[190px] flex justify-center"
       ></div>
     </main>
   </body>
