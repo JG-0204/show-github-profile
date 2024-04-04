@@ -1,30 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Document</title>
-      <link rel="stylesheet" href="style.css" />
-      <script src="main.js" defer></script>
-   </head>
-   <body>
-      <header>
-         <h1>GitHub User Information</h1>
-         <p>A page created using GitHub REST API</p>
-      </header>
-      <div class="container">
-         <p>/* Input your login name */</p>
-         <label for="login-input">
-            <input type="text" id="login-input" autofocus />
-         </label>
-         <button class="btn">Show</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./images/icon.png" type="image/x-icon" />
+    <title>Github Profile</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="module" src="./js/index.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="mb-6 mt-2">
+        <h1 class="font-bold text-3xl lowercase text-center md:text-left">
+          Github Profile_
+        </h1>
       </div>
-      <dialog>
-         <p>User not found.</p>
-         <form method="dialog">
-            <button>Confirm</button>
-         </form>
-      </dialog>
-      <div class="data-container"></div>
-   </body>
+      <p class="w-11/12 md:w-[555px] h-fit min-h-[120px] text-justify mx-auto">
+        search for a GitHub user, and find key details about them right here.
+        Get info like their name, username, location, follower count, following
+        count, and a peek at their popular repository.
+      </p>
+    </header>
+    <main class="mt-[3rem]">
+      <form
+        action="submit"
+        id="form"
+        class="flex justify-center items-center border-solid border-2 border-primary w-fit pl-2 mx-auto relative"
+      >
+        <label
+          for="input-username"
+          class="font-bold uppercase flex gap-2 py-2 px-3 border-gray-600 rounded-lg"
+        >
+          user:
+          <input
+            type="text"
+            placeholder="jg-0204"
+            id="input-username"
+            class="outline-none uppercase"
+          />
+        </label>
+        <button
+          type="submit"
+          name="user-search"
+          id="btn-search"
+          class="uppercase btn btn-square btn-neutral text-neutral-content"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            class="w-4 h-4"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </form>
+      <div
+        id="container"
+        class="mt-[120px] lg:mt-[190px] flex justify-center"
+      ></div>
+    </main>
+  </body>
 </html>
