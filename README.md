@@ -2,20 +2,14 @@
 
 ## Description
 
-A page for seeing your github user info with the use of [Github REST API](https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api?apiVersion=2022-11-28&tool=javascript).
+A simple page that uses [Github REST API](https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api?apiVersion=2022-11-28&tool=javascript) to search github users and show their information.
 
 ## Features
 
--  Enter a GitHub username to get user information.
--  Displays some user's profile details.
--  Shows the most-starred repository of the user.
+- Enter a GitHub username to get user information.
+- Displays some user's profile details.
+- Shows the most-starred repository of the user.
 
-## What I've learned
+![page screenshot](./images/example.png)
 
--  CSS Functions
--  JS Fetch API
--  JS Promises
--  Async/Await
--  Callback Functions
-
-I've listed all the things I used to create this project but I don't have a complete understanding of these topics.
+mediocre error handling, bad folder structure and also mediocre use of tailwindcss.
