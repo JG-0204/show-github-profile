@@ -11,9 +11,7 @@ const userInput = document.getElementById('input-username');
 const container = document.getElementById('container');
 
 const spinner = createSpinner();
-let loading;
-
-const setLoading = (val) => (loading = val);
+let timeoutID;
 
 const getGithubUser = async (username) => {
   try {
@@ -64,14 +62,11 @@ const renderUser = async (username) => {
   // remove previous user card
   container.innerHTML = '';
 
-  setLoading(true);
-
-  if (loading) container.appendChild(spinner);
+  // loading indicator
+  container.appendChild(spinner);
 
   try {
     const { user, userRepos } = await getGithubUser(username);
-
-    setLoading(false);
 
     const mostStarredRepo = getUserMostStarredRepo(userRepos);
     const userCard = createUserCard(user, mostStarredRepo);
@@ -79,7 +74,6 @@ const renderUser = async (username) => {
     container.removeChild(spinner);
     container.appendChild(userCard);
   } catch (err) {
-    setLoading(false);
     container.removeChild(spinner);
   }
 };
@@ -112,7 +106,11 @@ const showError = (errorMessage) => {
   const error = createError(errorMessage);
   container.appendChild(error);
 
-  setTimeout(() => {
+  if (timeoutID) {
+    clearTimeout(timeoutID);
+  }
+
+  timeoutID = setTimeout(() => {
     container.removeChild(error);
   }, 5000);
 };
